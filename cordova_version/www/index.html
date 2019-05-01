@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'/>
+        <style>
+            #judul{
+                background: #4b42f4;
+                color: #fff;
+                position: static;
+                align-content: center;
+                border-color: #ddd;
+                line-height: 50px;
+                padding-left: 25px;
+                border-radius: 10px;
+            }
+        </style>
+</head>
+<body >
+<div id="judul">
+<h3 >Aplikasi Absensi <a href="hint.html" style="padding-left: 10px;color:white;">Petunjuk</a>  </h3>
+</div>
+<div id="bodynya" style="padding-left: 10px;">
+<p>Mohon masukan daftar kelas-kelas</p>
+<button type="button" onclick="submitkelas();">Submit Nama kelas</button>
+<br/><br/>
+<table id="daftarkelas" border="5"></table>
+</div>
+</body>
+<script src="jquery-3.3.1.min.js"></script>
+<script>
+    var currentRow = -1;
+    var kelas=null;
+    var kelas = {};
+    function submitkelas(){
+        var listKelas = [];
+        
+        for (var i = 0; i < currentRow; i++){
+            //kelas[i] = $("#datakelas"+i);
+            var k =  $("#datakelas"+i);
+            if (k==null){continue;}
+            listKelas.push(k.html());
+        }
+        kelas["daftarKelas"] = listKelas;
+        alert("Fitur ini belum tersedia");
+    }       
+    function getRowInput(){
+        currentRow++; 
+        return "<tr id='row"+currentRow+"'><td><input type='text' id='inputkelas"+currentRow+"'/> <button type='button' onclick='tambahkelas()'>Tambah</button> </td></tr>"; 
+    }
+    function hapusRow(id){
+        console.log("rowNow"+id);
+        $("#rowNow"+id).remove();
+    }
+    function editRow(id){
+        console.log("edit datakelas"+id);
+        var nama = prompt("Edit "+$("#datakelas"+id).html()+" menjadi: ");
+        if (nama){
+            $("#datakelas"+id).html(nama);  
+        }
+        
+    }
+    function absenKelas(id){
+        localStorage.kelas = $("#datakelas"+id).html();
+        window.location="absen_kelas.html";
+        
+    }
+    function tambahkelas(){ 
+        var rowIndex = currentRow;
+        var namaInput = $("#inputkelas"+rowIndex).val();
+        if (namaInput==""){
+            if (!confirm("Nama kelas kosong? ")){
+                return;
+            }
+        }
+        
+        kelas.html(kelas.html()+"<tr id='rowNow"+rowIndex+"'><td><p id='datakelas"+rowIndex+"'>"+namaInput+"</p></td><td><button type='button' onclick='hapusRow("+String(rowIndex)+");'>Hapus</button></td><td><button type='button' onclick='editRow("+String(rowIndex)+");'>Edit</button></td><td><button type='button' onclick='absenKelas("+String(rowIndex)+");'>Absen Kelas</button></td></tr>");
+        $("#row"+currentRow).remove();
+        kelas.html(kelas.html()+getRowInput());
+    }
+    function main(){
+        kelas = $("#daftarkelas");
+        kelas.html(kelas.html()+getRowInput());
+    }
+    main();
+    
+</script>
+</html>

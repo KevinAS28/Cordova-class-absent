@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+    <!-- <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.min.js"></script> -->
+</head>
+
+<script type="text/javascript">
+    
+</script>
+<body>
+
+	<img src="google_cloud.png"/>
+	<br>
+	<h3 style="color: #222;">Text Reader From Text</h3>
+	<br>
+	<h4 style="color: #222;">Aplikasi ini berguna untuk membaca teks dari gambar menggunakan google cloud API. silahkan pilih URL API yang anda punya. jika anda belum punya, maka anda bisa menambahkan API key anda.</h4>	
+	<table id="table">
+
+	</table>
+    
+	<input type="file" id="filenya"/>
+	<button id="yay" onclick="tes();">Upload</button>
+    
+</body>
+<!-- <script src="jquery-3.3.1.min.js"></script>
+<script src="jquery-3.3.1.slim.min.js"></script>
+<script src="ajax.js"></script>
+ -->
+ <script src="jquery.min.js"></script>
+ 
+<script type="text/javascript">
+	
+
+    function tes(){
+    	console.log("kepencet");
+    	var fd = new FormData();
+        var files = $('#filenya')[0].files[0];
+        fd.append('file',files);
+
+        $.ajax({
+            url: 'https://www.googleapis.com/upload/storage/v1/b/kevin4/o?uploadType=media&name=img',
+            type: 'post',
+            data: fd,
+            processData: false,
+             headers: {
+             	"Access-Control-Allow-Origin" : "*",
+            "Content-Type":"image/jpeg",
+            "Content-Length": fd.length,
+            "Authorization":"Bearer AIzaSyCWLkj5UXxJQ7e0z2ULVlcbbSKNr10sCnM",
+        },
+            success: function(response){
+                if(response != 0){
+                    alert('sucess ' + String(response));
+                }else{
+                    alert('file not uploaded ' + String(response));
+                }
+            },
+        });
+	}
+
+    var apiUsed="";
+
+    //C++ Style :v
+    function main(){
+        
+    }
+    main();
+</script>
+</html>
+
+

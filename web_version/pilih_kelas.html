@@ -33,7 +33,6 @@
     var kelas = {};
     function submitkelas(){
         var listKelas = [];
-
         
         for (var i = 0; i < currentRow; i++){
             //kelas[i] = $("#datakelas"+i);
@@ -44,17 +43,14 @@
         kelas["daftarKelas"] = listKelas;
         alert("Fitur ini belum tersedia");
     }       
-
     function getRowInput(){
         currentRow++; 
         return "<tr id='row"+currentRow+"'><td><input type='text' id='inputkelas"+currentRow+"'/> <button type='button' onclick='tambahkelas()'>Tambah</button> </td></tr>"; 
     }
-
     function hapusRow(id){
         console.log("rowNow"+id);
         $("#rowNow"+id).remove();
     }
-
     function editRow(id){
         console.log("edit datakelas"+id);
         var nama = prompt("Edit "+$("#datakelas"+id).html()+" menjadi: ");
@@ -68,7 +64,6 @@
         window.location="absen_kelas.html";
         
     }
-
     function tambahkelas(){ 
         var rowIndex = currentRow;
         var namaInput = $("#inputkelas"+rowIndex).val();
@@ -82,12 +77,10 @@
         $("#row"+currentRow).remove();
         kelas.html(kelas.html()+getRowInput());
     }
-
     function main(){
         kelas = $("#daftarkelas");
         kelas.html(kelas.html()+getRowInput());
     }
-
     main();
     
 </script>

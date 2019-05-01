@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'/>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>	
+        <style>
+        	#judul{
+        		background: #4b42f4;
+        		color: #fff;
+        		position: static;
+        		align-content: center;
+        		border-color: #ddd;
+        		line-height: 50px;
+        		padding-left: 25px;
+        		border-radius: 10px;
+        	}
+        </style>
+</head>
+<body >
+<div id="judul">
+<h3 >Aplikasi Absensi <a href="hint.html" style="padding-left: 10px;color:white;">Petunjuk</a>	</h3>
+</div>
+<div id="bodynya" style="padding-left: 10px;">
+<p id="subTitle"></p>
+<button type="button" onclick="submitMurid();">Submit Nama Murid</button>
+<button type="button" onclick="absenMurid();">Mulai Absen Murid</button>
+<br/>
+<br/>
+<table id="daftarmurid" border="5"></table>
+</div>
+</body>
+<script src="jquery.min.js"></script>
+<script>
+	var currentRow = -1;
+	var murid=null;
+	var namaMurid = [];
+	
+	function submitMurid(){
+		var murid = {};
+		for (var i = 0; i < currentRow; i++){
+			//murid[i] = document.getElementById("datamurid"+i);
+			var murid =  document.getElementById("datamurid"+i);
+			if (murid==null){continue;}
+			namaMurid.push(murid.innerHTML);
+		}
+	}
+	function absenMurid(){
+		alert("selanjutnya, tekan oke untuk masuk atau cancel untuk tidak masuk");
+		var absen = {};
+		var tidak_masuk = "";
+		
+		
+		for (var i = 0; i < currentRow; i++){
+			//murid[i] = document.getElementById("datamurid"+i);
+			var murid =  document.getElementById("datamurid"+i);
+			if (murid==null){continue;}
+			murid = murid.innerHTML;
+			if (confirm(murid + " ?")==true){
+				 absen[murid] = "masuk";
+			}
+			else{
+				absen[murid] = prompt("Keterangan "+murid+" tidak masuk: ");
+				tidak_masuk+=murid+"\n";
+			}
+		}
+		var pesan = "Absen tidak masuk: \n\n";
+		
+		for (var nama in absen){
+			pesan += (nama+": "+absen[nama]+"\n");
+		}
+		alert(pesan);
+	}
+	function getRowInput(){
+		currentRow++; 
+		return "<tr id='row"+currentRow+"'><td><input type='text' id='inputmurid"+currentRow+"'/> <button type='button' onclick='tambahMurid()'>Tambah</button> </td></tr>"; 
+	}
+	function hapusRow(id){
+		console.log("rowNow"+id);
+		$("#rowNow"+id).remove();
+	}
+	function editRow(id){
+		console.log("edit datamurid"+id);
+		var nama = prompt("Edit "+$("#datamurid"+id).html()+" menjadi: ");
+		if (nama){
+			$("#datamurid"+id).html(nama);	
+		}
+		
+	}
+	function tambahMurid(){	
+		var rowIndex = currentRow;
+		var namaInput = document.getElementById("inputmurid"+rowIndex).value;
+		if (namaInput==""){
+			if (!confirm("Nama murid kosong? ")){
+				return;
+			}
+		}
+		
+		murid.innerHTML+= "<tr id='rowNow"+rowIndex+"'><td><p id='datamurid"+rowIndex+"'>"+namaInput+"</p></td><td><button type='button' onclick='hapusRow("+String(rowIndex)+");'>Hapus</button></td><td><button type='button' onclick='editRow("+String(rowIndex)+");'>Edit</button></td></tr>";
+		$("#row"+currentRow).remove();
+		murid.innerHTML += getRowInput();
+	}
+	function main(){
+		$("#subTitle").html("Mohon masukan daftar murid-murid "+localStorage.kelas);
+		murid = document.getElementById("daftarmurid");
+		murid.innerHTML += getRowInput();
+		alert(cordova.file.dataDirectory);
+	}
+	main();
+	
+</script>
+</html>

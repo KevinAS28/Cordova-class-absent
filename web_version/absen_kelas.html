@@ -35,7 +35,7 @@
 	var currentRow = -1;
 	var murid=null;
 	var namaMurid = [];
-	var absenMurid = {};
+	
 	function submitMurid(){
 		var murid = {};
 		for (var i = 0; i < currentRow; i++){
@@ -45,10 +45,9 @@
 			namaMurid.push(murid.innerHTML);
 		}
 	}
-
 	function absenMurid(){
 		alert("selanjutnya, tekan oke untuk masuk atau cancel untuk tidak masuk");
-		var absen = {"":""};
+		var absen = {};
 		var tidak_masuk = "";
 		
 		
@@ -61,27 +60,25 @@
 				 absen[murid] = "masuk";
 			}
 			else{
-
 				absen[murid] = prompt("Keterangan "+murid+" tidak masuk: ");
 				tidak_masuk+=murid+"\n";
 			}
 		}
-		console.log("Absen tidak masuk: \n\n");
+		var pesan = "Absen tidak masuk: \n\n";
+		
 		for (var nama in absen){
-			console.log(nama+": "+absen[nama]+"\n");
+			pesan += (nama+": "+absen[nama]+"\n");
 		}
+		alert(pesan);
 	}
-
 	function getRowInput(){
 		currentRow++; 
 		return "<tr id='row"+currentRow+"'><td><input type='text' id='inputmurid"+currentRow+"'/> <button type='button' onclick='tambahMurid()'>Tambah</button> </td></tr>"; 
 	}
-
 	function hapusRow(id){
 		console.log("rowNow"+id);
 		$("#rowNow"+id).remove();
 	}
-
 	function editRow(id){
 		console.log("edit datamurid"+id);
 		var nama = prompt("Edit "+$("#datamurid"+id).html()+" menjadi: ");
@@ -90,7 +87,6 @@
 		}
 		
 	}
-
 	function tambahMurid(){	
 		var rowIndex = currentRow;
 		var namaInput = document.getElementById("inputmurid"+rowIndex).value;
@@ -104,14 +100,12 @@
 		$("#row"+currentRow).remove();
 		murid.innerHTML += getRowInput();
 	}
-
 	function main(){
 		$("#subTitle").html("Mohon masukan daftar murid-murid "+localStorage.kelas);
 		murid = document.getElementById("daftarmurid");
 		murid.innerHTML += getRowInput();
 		alert(cordova.file.dataDirectory);
 	}
-
 	main();
 	
 </script>
