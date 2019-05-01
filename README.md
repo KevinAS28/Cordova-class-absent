@@ -1,5 +1,5 @@
 <h1>Simple Absent App</h1>
-<h2>Please build the apk by yourself</h2>
+<p>Please build the apk by yourself</p>
 it will be better soon
 
 ![Screenshot](SS0.png)
