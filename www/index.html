@@ -1,17 +1,30 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset='utf-8'/>
-    <title>Absensi Kelas</title>
-
+        <style>
+            #judul{
+                background: #4b42f4;
+                color: #fff;
+                position: static;
+                align-content: center;
+                border-color: #ddd;
+                line-height: 50px;
+                padding-left: 25px;
+                border-radius: 10px;
+            }
+        </style>
 </head>
-<body>
-<h3>Aplikasi Absensi</h3>
-<h4>Mohon masukan daftar kelas-kelas</h4>
+<body >
+<div id="judul">
+<h3 >Aplikasi Absensi <a href="hint.html" style="padding-left: 10px;color:white;">Petunjuk</a>  </h3>
+</div>
+<div id="bodynya" style="padding-left: 10px;">
+<p>Mohon masukan daftar kelas-kelas</p>
 <button type="button" onclick="submitkelas();">Submit Nama kelas</button>
-
+<br/><br/>
 <table id="daftarkelas" border="5"></table>
+</div>
 </body>
 <script src="jquery-3.3.1.min.js"></script>
 <script>
@@ -29,7 +42,7 @@
             listKelas.push(k.html());
         }
         kelas["daftarKelas"] = listKelas;
-        alert("Fitur ini akan segera hadir");
+        alert("Fitur ini belum tersedia");
     }       
 
     function getRowInput(){
